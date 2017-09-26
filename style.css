@@ -1,7 +1,10 @@
 body, html {
-
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 #main-container {
-
+  height: 100%;
 }

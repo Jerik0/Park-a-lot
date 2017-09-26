@@ -6,6 +6,7 @@
   let largeSelected = $('#large');
   let parkingBtn = $('#get-parking-btn');
   let carInfo = $('#car-info-container');
+  let chosenSpaces = [];
 
   const getRadioVal = (form, name) => {
     let val;
@@ -27,12 +28,17 @@
     receiptPrint(radioVal);
   });
 
-  const parkLogic = (spaces) => {
-    const smallSpaces = spaces.small;
-    const mediumSpaces = spaces.medium;
-    const largeSpaces = spaces.large;
-    //TODO subtract one from the corresponding space section in JSON file.
-    //TODO Then send the selected space to receiptPrint()
+  //Receives picked space number. if 1-50, subtracts one from small. if 51-100, subtracts one from medium. if 101-200, subtracts one from large.
+  const parkLogic = (space) => {
+    let smallSpaces = space.small;
+    let mediumSpaces = space.medium;
+    let largeSpaces = space.large;
+
+    if((space >= 1) && (space <= 50)) {
+      smallSpaces = (smallSpaces - 1);
+    } else if((space > 50) && (space <= 100)) {
+      mediumSpaces = (mediumSpaces - 1);
+    } else largeSpaces = (largeSpaces - 1);
     //TODO Then call parkDisplay again to display total spaces again.
   };
 
