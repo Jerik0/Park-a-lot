@@ -8,20 +8,26 @@
 <body>
   <div id="main-container">
     <h1>Park-A-Lot</h1>
-    <h3>What size car are you driving?</h3>
-    <form action="#" method="post" id="car-size">
-      <label for="small">Small
-        <input id="small" name="size" type="radio"/>
-      </label>
-      <label for="medium">Medium
-        <input id="medium" name="size" type="radio"/>
-      </label>
-      <label for="large">Large
-        <input id="large" name="size" type="radio"/>
-      </label>
-      <button id="get-parking-btn" type="button">Get Parking!</button>
-    </form>
-    <div id="car-info-container"></div>
+    <div id="form-container">
+      <h3>What size car are you driving?</h3>
+      <form action="#" method="post" id="car-size">
+        <label for="small">Small
+          <input id="small" name="size" type="radio"/>
+        </label>
+        <label for="medium">Medium
+          <input id="medium" name="size" type="radio"/>
+        </label>
+        <label for="large">Large
+          <input id="large" name="size" type="radio"/>
+        </label>
+        <button id="get-parking-btn" type="button">Get Parking!</button>
+      </form>
+    </div>
+
+    <div id="car-info-container">
+      <button id="info-getter">How Much Room Left?</button>
+      <span id="spaces-info-display"></span>
+    </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"
           integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
