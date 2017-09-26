@@ -7,19 +7,26 @@
 </head>
 <body>
   <div id="main-container">
-    <form>
-      <label for="small">Small</label>
-      <input id="small" type="radio">
-      <label for="medium">Medium</label>
-      <input id="medium" type="radio">
-      <label for="large">Large</label>
-      <input id="large" type="radio">
+    <h1>Park-A-Lot</h1>
+    <h3>What size car are you driving?</h3>
+    <form action="#" method="post" id="car-size">
+      <label for="small">Small
+        <input id="small" name="size" type="radio"/>
+      </label>
+      <label for="medium">Medium
+        <input id="medium" name="size" type="radio"/>
+      </label>
+      <label for="large">Large
+        <input id="large" name="size" type="radio"/>
+      </label>
+      <button id="get-parking-btn" type="button">Get Parking!</button>
     </form>
+    <div id="car-info-container"></div>
   </div>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous">
-</script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin="anonymous">
+  </script>
   <script src="logic.js"></script>
 </body>
 </html>
