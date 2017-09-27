@@ -1,6 +1,7 @@
 (() => {
   "use strict";
 
+  //=================Global Variables==================
   let smallSelected = $('#small');
   let mediumSelected = $('#medium');
   let largeSelected = $('#large');
@@ -9,8 +10,16 @@
   let chosenSpaces = [];
   let infoBtn = $('#info-getter');
   let spacesLeft = $('#spaces-info-display');
+  let smallSpaces = 50;
+  let mediumSpaces = 50;
+  let largeSpaces = 100;
 
-  //Retrieves value from checked
+  //These set the initial count for available spaces.
+  $('#small-remain').html(smallSpaces);
+  $('#med-remain').html(mediumSpaces);
+  $('#lg-remain').html(largeSpaces);
+
+  //Retrieves value from checked radial button.
   const getRadioVal = () => {
     let val;
     let radios = document.getElementById('car-size').elements['size'];
@@ -24,35 +33,42 @@
     return val;
   };
 
+  //Clicking 'get parking' button assigns a space and gives customer a receipt.
   parkingBtn.click(() => {
-    receiptPrint(getRadioVal());
-    infoGetter();
+    ticketPrint(getRadioVal());
   });
 
-  infoBtn.click(() => {
-    infoGetter();
-  });
+  //Prints to customer their space number. Parameter 'size' is passed from
+  const ticketPrint = (size) => {
+    //TODO Print number of the space assigned to customer on HTML.
+    console.log("Your space number is " + spacePicker(size));
+  };
+
 
   //Receives picked space number. if 1-50, subtracts one from small. if 51-100, subtracts one from medium. if 101-200, subtracts one from large.
   const parkLogic = (space) => {
-    let smallSpaces = space.small;
-    let mediumSpaces = space.medium;
-    let largeSpaces = space.large;
-    let newSmall;
-    let newMedium;
-    let newLarge;
-
+    console.log(space);
     if((space >= 1) && (space <= 50)) {
-      newSmall = (smallSpaces - 1);
-      infoSetter(newSmall, 'small');
+      console.log('small space');
+      smallSpaces -= 1;
+      lotDisplay('small', smallSpaces)
     } else if((space > 50) && (space <= 100)) {
-      newMedium = (mediumSpaces - 1);
-      infoSetter(newMedium, 'medium');
-    } else {
-      newLarge = (largeSpaces - 1);
-      infoSetter(newLarge, 'large');
+      console.log('medium space');
+      mediumSpaces -= 1;
+      lotDisplay('med', mediumSpaces)
+    } else if(space > 100){
+      console.log('large space');
+      largeSpaces -= 1;
+      lotDisplay('lg', largeSpaces)
     }
+
     //TODO Then call parkDisplay again to display total spaces again.
+  };
+
+  //Called by parkLogic(), which passes 'size', and remaining spaces for that category, as arguments
+  const lotDisplay = (size, spaceRemain) => {
+    $(`#${size}-remain`).html(spaceRemain);
+    console.log($(`#${size}-remain`).html());
   };
 
   //Takes in size as argument from getRadioVal() and returns appropriate space number.
@@ -79,46 +95,23 @@
 
   //Has the picked number already been picked? If so, pick again until it's not found and add to chosenSpaces array.
   const spaceCompare = (pickedNumber) => {
+    let i;
     if(chosenSpaces.length === 0) {
       chosenSpaces.push(pickedNumber);
+      parkLogic(pickedNumber);
     } else {
       if(chosenSpaces.indexOf(pickedNumber) === -1) {
         chosenSpaces.push(pickedNumber);
+        parkLogic(pickedNumber);
       }
     }
+    //if there are 200 spaces that have been chosen, notify the user that the lot is full
+    if(chosenSpaces.length === 200) {
 
-    console.log(chosenSpaces);
-    //TODO If no spaces remaining, alert customer that no spaces remain.
+    }
   };
 
   const spaceReturn = () => {
-
     //TODO Get space number from user, remove that number from chosenSpaces array to be available for picking and add the amount of spaces back to corresponding JSON data.
   };
-
-  const parkDisplay = (total) => {
-    spacesLeft.html(`There are ${total} spaces available.`);
-  };
-
-  //Prints to customer their space number. Parameter 'size' is passed from
-  const receiptPrint = (size) => {
-    //TODO Print number of the space assigned to customer
-    console.log("Your space number is " + spacePicker(size));
-  };
-
-  //Retrieves information about
-  const infoGetter = () => {
-    $.ajax('spaces-data.json').done(function(data, status) {
-      let total = (data.spaces.small + data.spaces.medium + data.spaces.large);
-      parkDisplay(total);
-      parkLogic(data.spaces);
-    });
-  };
-
-  //TODO Make this function post new available space total to JSON file.
-  const infoSetter = (newCount, size) => {
-    $.post('spaces-data.json', `'space.${size}': '${newCount}'`);
-  }
-
-
 })();

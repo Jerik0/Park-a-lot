@@ -5,14 +5,42 @@ body, html {
   height: 100%;
   box-sizing: border-box;
   align-content: center;
+  font-family: 'Raleway', sans-serif;
+  background-color: #88e4ff;
+  color: #142a34;
+  font-size: 1.3em;
+}
+
+li {
+  list-style-type: none;
+}
+
+h1 {
+  text-shadow: aliceblue 4px 4px;
+}
+
+#info-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  margin: 10px;
+  border-radius: 8px;
 }
 
 #main-container {
   height: 100%;
+  width: 100%;
 }
 
-div {
+#form-container {
+}
 
+#car-info-container {
+  padding: 15px;
+}
+
+#car-size {
+  margin: 10px;
 }
 
 .body-div {

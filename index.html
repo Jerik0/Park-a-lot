@@ -6,10 +6,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="info-container">
+    <h3>The Lot Contains 200 Spaces</h3>
+    <ul>
+      <li><span id="small-remain"></span> Small Spaces</li>
+      <li><span id="med-remain"></span> Medium Spaces</li>
+      <li><span id="lg-remain"></span> Large Spaces</li>
+    </ul>
+    <div id="car-info-container" class="body-div">
+      <span>There are </span><span id="spaces-info-display">___</span><span> spaces available.</span>
+    </div>
+  </div>
   <div id="main-container">
     <h1>Park-A-Lot</h1>
     <div id="form-container" class="body-div">
-      <h3>What size car are you driving?</h3>
+      <h3>What size is your car?</h3>
       <form action="#" method="post" id="car-size">
         <label for="small">Small
           <input id="small" name="size" type="radio"/>
@@ -22,11 +33,6 @@
         </label>
         <button id="get-parking-btn" type="button">Get Parking!</button>
       </form>
-    </div>
-
-    <div id="car-info-container" class="body-div">
-      <button id="info-getter">How Much Room Left?</button>
-      <span id="spaces-info-display"></span>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"
