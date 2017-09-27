@@ -8,7 +8,6 @@
   let parkingBtn = $('#get-parking-btn');
   let carInfo = $('#car-info-container');
   let chosenSpaces = [];
-  let infoBtn = $('#info-getter');
   let spacesLeft = $('#spaces-info-display');
   let smallSpaces = 50;
   let mediumSpaces = 50;
@@ -41,13 +40,12 @@
   //Prints to customer their space number. Parameter 'size' is passed from
   const ticketPrint = (size) => {
     //TODO Print number of the space assigned to customer on HTML.
-    console.log("Your space number is " + spacePicker(size));
+    $('#ticket-number').html("Your space number is " + spacePicker(size));
   };
 
 
   //Receives picked space number. if 1-50, subtracts one from small. if 51-100, subtracts one from medium. if 101-200, subtracts one from large.
   const parkLogic = (space) => {
-    console.log(space);
     if((space >= 1) && (space <= 50)) {
       console.log('small space');
       smallSpaces -= 1;
@@ -62,13 +60,14 @@
       lotDisplay('lg', largeSpaces)
     }
 
-    //TODO Then call parkDisplay again to display total spaces again.
+    let total = (smallSpaces + mediumSpaces + largeSpaces);
+    spacesLeft.html(total);
+
   };
 
   //Called by parkLogic(), which passes 'size', and remaining spaces for that category, as arguments
   const lotDisplay = (size, spaceRemain) => {
     $(`#${size}-remain`).html(spaceRemain);
-    console.log($(`#${size}-remain`).html());
   };
 
   //Takes in size as argument from getRadioVal() and returns appropriate space number.
@@ -95,20 +94,21 @@
 
   //Has the picked number already been picked? If so, pick again until it's not found and add to chosenSpaces array.
   const spaceCompare = (pickedNumber) => {
-    let i;
     if(chosenSpaces.length === 0) {
       chosenSpaces.push(pickedNumber);
       parkLogic(pickedNumber);
-    } else {
-      if(chosenSpaces.indexOf(pickedNumber) === -1) {
+    } else if(chosenSpaces.indexOf(pickedNumber) === -1) {
         chosenSpaces.push(pickedNumber);
         parkLogic(pickedNumber);
-      }
+    } else if(chosenSpaces.indexOf(pickedNumber) !== -1) {
+      spacePicker(getRadioVal()); //if it's been picked, we select another number.
     }
+
     //if there are 200 spaces that have been chosen, notify the user that the lot is full
     if(chosenSpaces.length === 200) {
-
+      $('#car-info-container').html("Sorry there are no more spaces!");
     }
+    console.log(pickedNumber);
   };
 
   const spaceReturn = () => {

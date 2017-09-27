@@ -11,6 +11,10 @@ body, html {
   font-size: 1.3em;
 }
 
+*:focus {
+  outline: none;
+}
+
 li {
   list-style-type: none;
 }
@@ -20,9 +24,10 @@ h1 {
 }
 
 #info-container {
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border: 1px solid #ffffff;
   margin: 10px;
   border-radius: 8px;
 }
@@ -44,8 +49,25 @@ h1 {
 }
 
 .body-div {
-  border: 1px solid black;
+  border: 1px solid #ffffff;
   margin-top: 10px;
   margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+#get-parking-btn {
+  color: #ffffff;
+  font-size: 1.3em;
+  border-radius: 5px;
+}
+
+#ticket-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 30%;
+  width: 100%;
+  border: 1px solid #ffffff;
   border-radius: 8px;
 }
