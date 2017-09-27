@@ -10,9 +10,10 @@
   let infoBtn = $('#info-getter');
   let spacesLeft = $('#spaces-info-display');
 
-  const getRadioVal = (form, name) => {
+  //Retrieves value from checked
+  const getRadioVal = () => {
     let val;
-    let radios = form.elements[name];
+    let radios = document.getElementById('car-size').elements['size'];
 
     for(let i=0, len = radios.length; i<len; i++) {
       if(radios[i].checked) {
@@ -24,10 +25,7 @@
   };
 
   parkingBtn.click(() => {
-    let radioVal;
-    radioVal = getRadioVal(document.getElementById('car-size'), 'size');
-    console.log(radioVal);
-    receiptPrint(radioVal);
+    receiptPrint(getRadioVal());
     infoGetter();
   });
 
@@ -57,46 +55,58 @@
     //TODO Then call parkDisplay again to display total spaces again.
   };
 
-  //Takes in size
+  //Takes in size as argument from getRadioVal() and returns appropriate space number.
   const spacePicker = (size) => {
+    let pickedNumber;
     switch(size) {
       case 'small':
-        let smallPicked = Math.floor(Math.random() * (50-1) + 1);
-        chosenSpaces.push(smallPicked);
-        return smallPicked;
+        pickedNumber = Math.floor(Math.random() * (200-1) + 1); //small spaces run from 1-200
+        spaceCompare(pickedNumber);
+        return pickedNumber;
         break;
       case 'medium':
-        let medPicked = Math.floor(Math.random() * (200-51) + 51);
-        chosenSpaces.push(medPicked);
-        return medPicked;
+        pickedNumber = Math.floor(Math.random() * (200-51) + 51); //medium spaces run from 51-200
+        spaceCompare(pickedNumber);
+        return pickedNumber;
         break;
       case 'large':
-        let largePicked = Math.floor(Math.random() * (200-101) + 101);
-        chosenSpaces.push(largePicked);
-        return largePicked;
+        pickedNumber = Math.floor(Math.random() * (200-101) + 101); //large spaces run from 101-200
+        spaceCompare(pickedNumber);
+        return pickedNumber;
         break;
     }
   };
 
-  const spaceComparer = () => {
-    //TODO Compare randomly chosen number to all numbers in chosenSpaces array. If match found, pick another space until match is not found. If no spaces remaining, alert customer that no spaces remain.
+  //Has the picked number already been picked? If so, pick again until it's not found and add to chosenSpaces array.
+  const spaceCompare = (pickedNumber) => {
+    if(chosenSpaces.length === 0) {
+      chosenSpaces.push(pickedNumber);
+    } else {
+      if(chosenSpaces.indexOf(pickedNumber) === -1) {
+        chosenSpaces.push(pickedNumber);
+      }
+    }
+
+    console.log(chosenSpaces);
+    //TODO If no spaces remaining, alert customer that no spaces remain.
   };
 
   const spaceReturn = () => {
-    //TODO Get space number from user, remove that number from chosenSpaces array to be available for picking.
+
+    //TODO Get space number from user, remove that number from chosenSpaces array to be available for picking and add the amount of spaces back to corresponding JSON data.
   };
 
   const parkDisplay = (total) => {
     spacesLeft.html(`There are ${total} spaces available.`);
-    //TODO Display how many small medium and large spaces available
-
   };
 
+  //Prints to customer their space number. Parameter 'size' is passed from
   const receiptPrint = (size) => {
     //TODO Print number of the space assigned to customer
     console.log("Your space number is " + spacePicker(size));
   };
 
+  //Retrieves information about
   const infoGetter = () => {
     $.ajax('spaces-data.json').done(function(data, status) {
       let total = (data.spaces.small + data.spaces.medium + data.spaces.large);
