@@ -110,8 +110,4 @@
     }
     console.log(pickedNumber);
   };
-
-  const spaceReturn = () => {
-    //TODO Get space number from user, remove that number from chosenSpaces array to be available for picking and add the amount of spaces back to corresponding JSON data.
-  };
 })();
